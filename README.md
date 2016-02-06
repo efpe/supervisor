@@ -1,22 +1,15 @@
-supervisor Cookbook
-===================
-
-[![Build Status](https://travis-ci.org/poise/supervisor.svg?branch=master)](https://travis-ci.org/poise/supervisor)
-
+# supervisor Cookbook
+## This cookbook is using the new poise-python cookbook.
 Installs (Python) supervisor and provides resources to configure services
 
-
-Requirements
-------------
+## Requirements
 ### Platforms
 Supports Debian and RHEL based systems. Tested on Ubuntu 12.04, 10.04, CentOS 6.5.
 
 ### Cookbooks
 - python
 
-
-Attributes
-----------
+## Attributes
 - `node['supervisor']['inet_port']` - The port on which you want to serve the internal web-based admin dashboard, e.g. `'localhost:9001'`
 - `node['supervisor']['inet_username']` - The username for authentication to this HTTP server
 - `node['supervisor']['inet_password']` - The password for authentication to this HTTP server (supports both cleartext and SHA-1 hashed passwords prefixed by `{SHA}`)
@@ -31,28 +24,26 @@ Attributes
 - `node['supervisor']['version']` - Sets the version of supervisor to install, must be 3.0+ to use minprocs, minfds and nocleanup.
 - `node['supervisor']['socket_file']` - location of supervisor socket file.
 - `node['supervisor']['ctlplugins']` - entries for `supervisorctl` plugins.
+
   For instance, to install [serialrestart](https://pypi.python.org/pypi/supervisor-serialrestart), you'd manually add this to your config:
 
-    ```text
+  ```text
     [ctlplugin:serialrestart]
     supervisor.ctl_factory = supervisorserialrestart.controllerplugin:make_serialrestart_controllerplugin
-	```
+  ```
+
   Which can be achieved using
-    ```ruby
-	node.default['supervisor']['ctlplugins'] = ({
-	 'serialrestart'=> 'supervisorserialrestart.controllerplugin:make_serialrestart_controllerplugin'
+
+  ```ruby
+    node.default['supervisor']['ctlplugins'] = ({
+     'serialrestart'=> 'supervisorserialrestart.controllerplugin:make_serialrestart_controllerplugin'
      })
-	 ```
+  ```
 
-
-Resources/Providers
--------------------
+## Resources/Providers
 ### supervisor\_service
-
 #### Actions
-
 The default action is the array `[:enable, :start]`. Actions use the `supervisorctl` program.
-
 - :enable - enables the service at boot time
 - :disable - disables the service at boot time
 - :start - starts the service
@@ -61,11 +52,9 @@ The default action is the array `[:enable, :start]`. Actions use the `supervisor
 - :reload - reloads the service
 
 #### Attribute Parameters
-
-- `:service_name` - (*Name Attribute*), a string, name of the service
+- `:service_name` - (_Name Attribute_), a string, name of the service
 
 The following attributes are used in the program.conf.erb as the values for the corresponding configuration option. See [the supervisor documentation](http://supervisord.org/configuration.html#program-x-section-values) for more information about each setting, including applicable defaults.
-
 - `:command` - string
 - `:process_name` - string
 - `:numprocs` - integer
@@ -105,19 +94,15 @@ supervisor_service "celery" do
 end
 ```
 
-
-Recipes
--------
+## Recipes
 ### default
 Includes the python recipe, installs the supervisor PIP package and sets up supervisor.
 
-
-License & Authors
------------------
-- Author:: Noah Kantrowitz <noah@opscode.com>
-- Author:: Gilles Devaux <gilles.devaux@gmail.com>
-- Author:: Sam Clements <sam.clements@datasift.com>
-- Author:: Chris Jerdonek <chris.jerdonek@gmail.com>
+## License & Authors
+- Author:: Noah Kantrowitz [noah@opscode.com](mailto:noah@opscode.com)
+- Author:: Gilles Devaux [gilles.devaux@gmail.com](mailto:gilles.devaux@gmail.com)
+- Author:: Sam Clements [sam.clements@datasift.com](mailto:sam.clements@datasift.com)
+- Author:: Chris Jerdonek [chris.jerdonek@gmail.com](mailto:chris.jerdonek@gmail.com)
 
 ```text
 Copyright:: 2011-2012, Opscode, Inc <legal@opscode.com>
