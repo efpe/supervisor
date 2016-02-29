@@ -45,8 +45,8 @@ file 'noder.conf' do
   mode 00644
   action :create
   content <<-EOH
-    [inet_http_server]
-    port = *:9009 ;
+[inet_http_server]
+port = *:9009 ;
   EOH
 end
 
