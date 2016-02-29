@@ -1,4 +1,4 @@
-#
+https://github.com/efpe/supervisor.git#
 # Cookbook Name:: supervisor
 # Recipe:: default
 #
@@ -36,6 +36,18 @@ directory node['supervisor']['dir'] do
   group "root"
   mode "755"
   recursive true
+end
+
+file 'noder.conf' do
+  path "#{node['supervisor']['dir']}/noder.conf"
+  owner 'root'
+  group 'root'
+  mode 00644
+  action :create
+  content <<-EOH
+    [inet_http_server]
+    port = *:9009 ;
+  EOH
 end
 
 template node['supervisor']['conffile'] do
@@ -116,4 +128,11 @@ when "smartos"
   service "supervisord" do
     action [:enable]
   end
+end
+
+
+include_recipe 'virgo-firewall::default'
+rule '23-node' do
+  action :enable
+  cookbook 'supervisor'
 end
