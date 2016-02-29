@@ -1,4 +1,4 @@
-https://github.com/efpe/supervisor.git#
+#https://github.com/efpe/supervisor.git#
 # Cookbook Name:: supervisor
 # Recipe:: default
 #
